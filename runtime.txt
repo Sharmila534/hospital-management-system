@@ -1,0 +1,1 @@
+python-3.11.9& "F:\Git\Git\cmd\git.exe" add .
