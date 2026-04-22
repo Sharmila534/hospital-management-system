@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}My Appointments{% endblock %}
+{% block content %}
+<a href="{{ url_for('doctor.dashboard') }}" class="back-btn">🔙 Back to Dashboard</a>
+
+<div class="card">
+  <h3>My Schedule</h3>
+
+  {% if appointments %}
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Date & Time</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appt in appointments %}
+      <tr>
+        <td>{{ appt.patient_name or appt.patient_id }}</td>
+        <td>{{ appt.datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+        <td>{{ appt.status }}</td>
+        <td>{{ appt.notes or '—' }}</td>
+        <td>
+          <form method="post" action="{{ url_for('doctor.delete_appointment', appt_id=appt._id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this appointment?');">🗑️ Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No appointments yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

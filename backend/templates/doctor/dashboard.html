@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <aside class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse shadow-sm">
+      <div class="position-sticky pt-3">
+        <div class="d-flex align-items-center mb-4">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" 
+               alt="Logo" class="rounded-circle border me-2" 
+               style="width:50px; height:50px; object-fit:cover;">
+          <div>
+            <h6 class="mb-0">{{ current_user.username }}</h6>
+            <small class="text-muted">{{ current_user.role|capitalize }}</small>
+          </div>
+        </div>
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.dashboard' %}active{% endif %}" 
+               href="{{ url_for('doctor.dashboard') }}">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.appointments' %}active{% endif %}" 
+               href="{{ url_for('doctor.appointments') }}">
+              <i class="bi bi-calendar-check"></i> Appointments
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.patients' %}active{% endif %}" 
+               href="{{ url_for('doctor.patients') }}">
+              <i class="bi bi-people"></i> Patients
+            </a>
+          </li>
+
+          <!-- ✅ New Prescriptions Menu Item -->
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.view_prescriptions' %}active{% endif %}" 
+               href="{{ url_for('doctor.view_prescriptions') }}">
+              <i class="bi bi-journal-medical"></i> Prescriptions
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.profile' %}active{% endif %}" 
+               href="{{ url_for('doctor.profile') }}">
+              <i class="bi bi-person-circle"></i> Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'doctor.salary' %}active{% endif %}" 
+               href="{{ url_for('doctor.salary') }}">
+              <i class="bi bi-cash-coin"></i> Salary
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <a class="nav-link text-danger fw-semibold" href="{{ url_for('auth.logout') }}">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <a href="{{ url_for('auth.login') }}" class="back-btn">🔙 Back to Login</a>
+      <h2 class="mt-4">Doctor Dashboard</h2>
+      <hr>
+
+      <div class="row">
+        <!-- Appointments card -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Appointments</h5>
+              <p class="card-text">View and manage your upcoming appointments.</p>
+              <a href="{{ url_for('doctor.appointments') }}" class="btn btn-primary btn-sm">View</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patients card -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Patients</h5>
+              <p class="card-text">See your patients and add prescriptions.</p>
+              <a href="{{ url_for('doctor.patients') }}" class="btn btn-primary btn-sm">View</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ New Prescriptions card -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Prescriptions</h5>
+              <p class="card-text">Review all prescriptions you've written.</p>
+              <a href="{{ url_for('doctor.view_prescriptions') }}" class="btn btn-primary btn-sm">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

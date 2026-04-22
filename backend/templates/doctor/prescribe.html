@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Write Prescription{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+  <a href="{{ url_for('doctor.patients') }}" class="back-btn">⬅ Back to Patients</a>
+
+  <h2>Write Prescription for {{ patient.name }}</h2>
+
+  <form method="POST" class="form-card">
+    <div class="form-group">
+      <label for="details">Prescription Details:</label>
+      <textarea id="details" name="details" rows="6" required></textarea>
+    </div>
+
+    <button type="submit" class="btn-primary">Submit Prescription</button>
+  </form>
+</div>
+{% endblock %}
